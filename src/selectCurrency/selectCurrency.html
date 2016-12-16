@@ -1,0 +1,3 @@
+<md-select placeholder="<b>{{vm.symbol}}</b> {{vm.currency}}" ng-model="vm.currency" md-on-open="vm.loadCurrencies()" md-on-close="vm.selectedCurrency()">
+    <md-option ng-value="currency" ng-repeat="currency in vm.currencies"><b>{{currency.symbol}}</b> {{currency.short_name}}</md-option>
+</md-select>

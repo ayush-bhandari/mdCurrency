@@ -1,0 +1,36 @@
+{
+  "name": "md-currency",
+  "version": "1.0.0",
+  "description": "AngularJS and Material Design using Angular-Material Based Currency Converter",
+  "main": "mdCurrency.module.js",
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayush-bhandari/mdCurrency.git"
+  },
+  "keywords": [
+    "angularjs",
+    "angular-material",
+    "material-design",
+    "currency",
+    "currency-converter"
+  ],
+  "author": "Ayush Bhandari <aayushbhandari@yahoo.com> (ayushbhandari.com.np)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayush-bhandari/mdCurrency/issues"
+  },
+  "homepage": "https://github.com/ayush-bhandari/mdCurrency#readme",
+  "devDependencies": {
+    "angular": "^1.6.0",
+    "angular-animate": "^1.6.0",
+    "angular-aria": "^1.6.0",
+    "angular-material": "^1.1.1",
+    "angular-messages": "^1.6.0",
+    "angular-route": "^1.6.0",
+    "lite-server": "^2.2.2"
+  }
+}
