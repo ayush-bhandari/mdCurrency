@@ -3,7 +3,7 @@
 
 	angular
 		.module('mdCurrency')
-		.service('sharedProperties', function () {
+		.service('sharedProperties', function ($rootScope) {
 	        var property = [];
 			return {
 	            getProperty: function () {
@@ -11,6 +11,9 @@
 	            },
 	            setProperty: function(value) {
 	                property = value;
+	                $rootScope.$broadcast('eventFired', {
+                		data: 'something'
+            		});
 	            }
         	};
     	})

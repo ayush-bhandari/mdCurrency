@@ -3,12 +3,24 @@
 
 	angular
 		.module('selectCurrency')
-		.controller('SelectCurrencyController', SelectCurrencyController);
+		.controller('SelectCurrencyController', SelecCurrencyController);
 
 	function SelectCurrencyController($attrs,$http,sharedProperties){
 		var vm =this;
 		// console.log($attrs.base);
 		
+
+		$http({
+			method: 'GET',
+			url: 'currencies.json'
+		}).then(function successCallback(response) {
+				console.log(response);
+			}, function errorCallback(response) {
+				
+		});
+
+
+
 		vm.base = null;
 		if ($attrs.base == 'undefined'){
 			vm.base = "USD";
@@ -19,6 +31,8 @@
 		}
 		
 		vm.symbol = "$";
+	sharedProperties.setProperty(vm.symbol);
+
   		vm.currencies = null;
 		console.log(vm.currency);
 		console.log(vm.base);
@@ -201,6 +215,113 @@
 		vm.selectedCurrency = function(){
 			console.log(vm.currency);
 			sharedProperties.setProperty(vm.currency.symbol);
+		}
+	}
+
+
+	function SelecCurrencyController($attrs,$http,sharedProperties){
+		var vm =this;
+		//console.log($attrs.base);
+		vm.currencies = null;
+		vm.baseCurrency = null;
+		vm.currency = {
+			name : null,
+			short_name: null,
+			symbol: null,
+			rate: null
+		};
+
+		if ($attrs.base == null){
+			//console.log($attrs.base);
+			vm.currency = {
+				name : "US Dollar",
+				short_name: "USD",
+				symbol: "$",
+				rate: 1
+			};
+			sharedProperties.setProperty(vm.currency);
+			vm.baseCurrency = "USD";
+		}else{
+			//console.log($attrs.base);
+			$http({
+				method: 'GET',
+				url: 'currencies.json'
+			}).then(function successCallback(response) {
+					for (var i=0; i <= response.data.length; i++) {
+						if ($attrs.base === response.data[i].short_name){
+							vm.currency={
+								name : response.data[i].name,
+								short_name: response.data[i].short_name,
+								symbol: response.data[i].symbol,
+								rate: 1
+							};
+							sharedProperties.setProperty(vm.currency);
+							vm.baseCurrency = $attrs.base;
+						}
+						// else{
+						// 	vm.currency = {
+						// 		name : "US Dollar",
+						// 		short_name: "USD",
+						// 		symbol: "$",
+						// 		rate: 1
+						// 	};
+						// 	sharedProperties.setProperty(vm.currency);
+						// 	vm.base = "USD";
+						// }
+					}
+					//console.log(response);
+				}, function errorCallback(response) {
+					// vm.currency = {
+					// 	name : "US Dollar",
+					// 	short_name: "USD",
+					// 	symbol: "$",
+					// 	rate: 1
+					// };
+					// sharedProperties.setProperty(vm.currency);
+					// vm.base = "USD";
+			});			
+		}
+
+		//vm.url = 'http://api.fixer.io/latest?base=' + vm.base;
+		//http://api.fixer.io/latest?base=USD
+		
+		// $http({
+		// 	method: 'GET',
+		// 	url: vm.url
+		// }).then(function successCallback(response) {
+		// 		console.log(response.data.rates.AUD);
+		// 	}, function errorCallback(response) {
+				
+		// });
+
+		vm.loadCurrencies = function() {    
+			$http({
+				method: 'GET',
+				url: 'currencies.json'
+			}).then(function successCallback(response) {
+					vm.currencies = response.data;
+					//console.log(response);
+				}, function errorCallback(response) {
+					
+			});
+			//return vm.currencies;
+		};
+
+		vm.selectedCurrency = function(){
+			console.log(vm.baseCurrency);
+			vm.url = 'http://api.fixer.io/latest?base=' + vm.baseCurrency;
+			//http://api.fixer.io/latest?base=USD
+			
+			$http({
+				method: 'GET',
+				url: vm.url
+			}).then(function successCallback(response) {
+					//console.log(vm.base);
+					console.log(response.data.rates.name);
+				}, function errorCallback(response) {
+					
+			});
+			//sharedProperties.setProperty(vm.currency.symbol);
 		}
 
 	}
