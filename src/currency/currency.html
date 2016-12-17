@@ -1,1 +1,1 @@
-<p>{{vm.amount | currency: vm.currency :vm.fraction}}</p>
+<p><b>{{vm.currency.symbol}}</b>{{vm.amount * vm.currency.rate | currency:' ':vm.fraction}}</p>
