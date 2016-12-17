@@ -247,28 +247,42 @@
 				method: 'GET',
 				url: 'currencies.json'
 			}).then(function successCallback(response) {
-					for (var i=0; i <= response.data.length; i++) {
+					var i = 0;
+					angular.forEach(response.data, function() {
 						if ($attrs.base === response.data[i].short_name){
-							vm.currency={
-								name : response.data[i].name,
-								short_name: response.data[i].short_name,
-								symbol: response.data[i].symbol,
-								rate: 1
-							};
-							sharedProperties.setProperty(vm.currency);
-							vm.baseCurrency = $attrs.base;
-						}
-						// else{
-						// 	vm.currency = {
-						// 		name : "US Dollar",
-						// 		short_name: "USD",
-						// 		symbol: "$",
-						// 		rate: 1
-						// 	};
-						// 	sharedProperties.setProperty(vm.currency);
-						// 	vm.base = "USD";
-						// }
-					}
+								vm.currency={
+									name : response.data[i].name,
+									short_name: response.data[i].short_name,
+									symbol: response.data[i].symbol,
+									rate: 1
+								};
+								sharedProperties.setProperty(vm.currency);
+								vm.baseCurrency = $attrs.base;
+							}
+						i++;
+					});
+					// for (var i=0; i <= response.data.length; i++) {
+					// 	if ($attrs.base === response.data[i].short_name){
+					// 		vm.currency={
+					// 			name : response.data[i].name,
+					// 			short_name: response.data[i].short_name,
+					// 			symbol: response.data[i].symbol,
+					// 			rate: 1
+					// 		};
+					// 		sharedProperties.setProperty(vm.currency);
+					// 		vm.baseCurrency = $attrs.base;
+					// 	}
+					// 	// else{
+					// 	// 	vm.currency = {
+					// 	// 		name : "US Dollar",
+					// 	// 		short_name: "USD",
+					// 	// 		symbol: "$",
+					// 	// 		rate: 1
+					// 	// 	};
+					// 	// 	sharedProperties.setProperty(vm.currency);
+					// 	// 	vm.base = "USD";
+					// 	// }
+					// }
 					//console.log(response);
 				}, function errorCallback(response) {
 					// vm.currency = {
@@ -311,13 +325,20 @@
 			console.log(vm.baseCurrency);
 			vm.url = 'http://api.fixer.io/latest?base=' + vm.baseCurrency;
 			//http://api.fixer.io/latest?base=USD
-			
+			//console.log(vm.baseCurrency);
+
 			$http({
 				method: 'GET',
 				url: vm.url
 			}).then(function successCallback(response) {
 					//console.log(vm.base);
-					console.log(response.data.rates.name);
+					angular.forEach(response.data.rates, function(value, key) {
+					if (key === vm.currency.short_name){
+						vm.currency.rate = value;
+						sharedProperties.setProperty(vm.currency);
+					}
+					});
+					//console.log(response.data.rates);
 				}, function errorCallback(response) {
 					
 			});
