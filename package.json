@@ -1,6 +1,6 @@
 {
   "name": "md-currency",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AngularJS and Material Design using Angular-Material Based Currency Converter",
   "main": "mdCurrency.js",
   "scripts": {
