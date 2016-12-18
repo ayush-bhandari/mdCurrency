@@ -45,7 +45,7 @@
 		}else{
 			$http({
 				method: 'GET',
-				url: 'currencies.json'
+				url: 'node_modules/md-currency/currencies.json'
 			}).then(function successCallback(response) {
 					var i = 0;
 					angular.forEach(response.data, function() {
