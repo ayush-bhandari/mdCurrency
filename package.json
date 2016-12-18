@@ -2,7 +2,7 @@
   "name": "md-currency",
   "version": "1.0.0",
   "description": "AngularJS and Material Design using Angular-Material Based Currency Converter",
-  "main": "mdCurrency.module.js",
+  "main": "mdCurrency.js",
   "scripts": {
     "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"

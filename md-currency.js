@@ -69,7 +69,7 @@
 		vm.loadCurrencies = function() {    
 			$http({
 				method: 'GET',
-				url: 'currencies.json'
+				url: 'node_modules/md-currency/currencies.json'
 			}).then(function successCallback(response) {
 					vm.currencies = response.data;
 				}, function errorCallback(response) {
@@ -84,7 +84,7 @@
 			}else{
 				$http({
 						method: 'GET',
-						url: 'currencyAPI.json'
+						url: 'node_modules/md-currency/currencyAPI.json'
 					}).then(function successCallback(res) {
 						vm.url = res.data.api_url + res.data.api_key + res.data.api_params + vm.baseCurrency;
 						//http://api.fixer.io/latest?base=USD
