@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('selectCurrency')
+		.module('mdCurrency')
 		.controller('SelectCurrencyController', SelectCurrencyController);
 
 	function SelectCurrencyController($attrs,$http,sharedCurrency){
@@ -65,21 +65,29 @@
 				vm.currency.rate = 1;
 				sharedCurrency.setCurrency(vm.currency);
 			}else{
-				vm.url = 'http://api.fixer.io/latest?base=' + vm.baseCurrency;
-				//http://api.fixer.io/latest?base=USD
 				$http({
-					method: 'GET',
-					url: vm.url
-				}).then(function successCallback(response) {
-						angular.forEach(response.data.rates, function(value, key) {
-							if (key === vm.currency.short_name){
-								vm.currency.rate = value;
-								sharedCurrency.setCurrency(vm.currency);
-							}
+						method: 'GET',
+						url: 'currencyAPI.json'
+					}).then(function successCallback(res) {
+						vm.url = res.data.api_url + res.data.api_key + res.data.api_params + vm.baseCurrency;
+						//http://api.fixer.io/latest?base=USD
+						$http({
+							method: 'GET',
+							url: vm.url
+						}).then(function successCallback(response) {
+								angular.forEach(response.data.rates, function(value, key) {
+									if (key === vm.currency.short_name){
+										vm.currency.rate = value;
+										sharedCurrency.setCurrency(vm.currency);
+									}
+								});
+							}, function errorCallback(response) {
+								
 						});
-					}, function errorCallback(response) {
+					}, function errorCallback(res) {
 						
 				});
+				
 			}
 			
 		}

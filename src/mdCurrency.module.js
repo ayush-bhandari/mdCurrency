@@ -2,5 +2,5 @@
 	'use strict';
 
 	angular
-		.module('mdCurrency',['selectCurrency','currency']);
+		.module('mdCurrency',[]);
 })();

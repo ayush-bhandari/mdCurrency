@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('currency')
+		.module('mdCurrency')
 		.directive('mdCurrency', mdCurrency);
 
 	function mdCurrency() {

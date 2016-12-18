@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('currency')
+		.module('mdCurrency')
 		.controller('CurrencyController', CurrencyController);
 
 	function CurrencyController($rootScope,$attrs,sharedCurrency){
